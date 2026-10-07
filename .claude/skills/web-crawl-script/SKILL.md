@@ -22,12 +22,14 @@ Việc lặp lại trên web cần lấy data. Việc chỉ làm một lần th�
 
 ## 2. Trước khi dò
 
-Đọc `specs/<task>.md`. Dừng và báo người dùng nếu:
+Đọc `specs/<task>.md`. Spec do người điền và chỉ có: site, mục đích, thuộc tính cần lấy, tham số, dữ liệu (loại, PII, người duyệt, env agent được dò), đăng nhập. Dừng và báo người dùng nếu:
 
-- mục "Dữ liệu & phê duyệt" còn trống, hoặc
-- env định dò không nằm trong danh sách env được phép cho agent.
+- mục "Dữ liệu" còn trống (thiếu người duyệt hoặc env agent được dò), hoặc
+- env định dò không nằm trong "Agent được dò trên".
 
-Chỉ dò và chạy trên env có `agentAllowed: true`. `run.ts` cũng từ chối env khác khi chạy từ shell của agent.
+Mọi thứ còn lại agent tự suy ra khi dò rồi ghi vào code, không bắt người điền: kiểu và độ bắt buộc của trường, `uniqueKey`, `minRecords`, phân trang, `maxPages`, `rate`, origin, `writeAllowlist`, `blockUrls`, dấu hiệu hết phiên. Nếu không chắc (ví dụ thiếu bản ghi so với trên màn hình), hỏi người dùng.
+
+Chỉ dò và chạy trên env có `agentAllowed: true` trong `config`. `run.ts` cũng từ chối env khác khi chạy từ shell của agent.
 
 ## 3. Khám phá
 
@@ -48,7 +50,7 @@ Trong lúc dò:
 - Dùng `snapshot` và `requests`; ưu tiên tìm API XHR/GraphQL mà trang đang gọi.
 - Không bấm submit, save, delete, approve.
 - Gặp trang đăng nhập thì dừng, `playwright-cli close`, và nhờ người dùng chạy `pnpm signin <task>`. Không nhập credential.
-- Liệt kê mọi origin thấy trong `requests`, xếp vào `appOrigins` (app và API của nó), `idpOrigins`, `dropOrigins` (telemetry). Ghi lại vào mục "Origin" của spec.
+- Liệt kê mọi origin thấy trong `requests`, xếp vào `appOrigins` (app và API của nó), `idpOrigins`, `dropOrigins` (telemetry). Ghi vào `config` của task, không ghi vào spec.
 
 Cú pháp các lệnh playwright-cli: xem skill `playwright-cli` (cài bằng `playwright-cli install --skills`), không chép lại ở đây.
 
@@ -68,7 +70,7 @@ Tạo `automations/tasks/<task>.ts`, lấy `automations/tasks/quotes.ts` làm m�
 
 ## 5. Schema và sample
 
-- `schemas/<task>.ts` export `recordSchema` (zod), sinh từ mục "Output schema" của spec. Trường không có trong schema sẽ bị bỏ khi ghi file.
+- `schemas/<task>.ts` export `recordSchema` (zod), sinh từ mục "Thuộc tính cần lấy" của spec (agent chọn tên trường camelCase và kiểu). Trường không có trong schema sẽ bị bỏ khi ghi file.
 - `specs/<task>.sample.json` chỉ chứa giá trị giả. Không chép tên người, mã nhân viên hay nội dung thật từ site.
 - Nếu cần báo cáo: `analysis/tasks/<task>.ts` export `analyze(records, meta)`, chỉ trả số liệu tổng hợp.
 

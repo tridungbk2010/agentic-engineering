@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "task": "efis-my-learning",
+    "env": "staging",
+    "params": {},
+    "recordCount": 2,
+    "startedAt": "2026-01-01T00:00:00.000Z",
+    "finishedAt": "2026-01-01T00:00:08.000Z"
+  },
+  "records": [
+    {
+      "courseId": "sample-course-one",
+      "title": "Sample Course One",
+      "url": "https://staging.efis.edu.vn/learn/sample-course-one",
+      "progressPercent": 25,
+      "completedLessons": 10,
+      "totalLessons": 40
+    },
+    {
+      "courseId": "sample-course-two",
+      "title": "Sample Course Two",
+      "url": "https://staging.efis.edu.vn/learn/sample-course-two",
+      "progressPercent": 0,
+      "completedLessons": 0,
+      "totalLessons": 12
+    }
+  ]
+}

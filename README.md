@@ -42,7 +42,7 @@ Khi lỗi, màn hình chỉ in tên bước và loại lỗi. Chi tiết nằm t
 
 ## Tạo crawler mới
 
-1. Viết `specs/<task>.md` từ `specs/_template.md`. Mục "Dữ liệu & phê duyệt" phải có người duyệt.
+1. Viết `specs/<task>.md` từ `specs/_template.md`. Spec ngắn, chỉ ghi site, thuộc tính cần lấy và mục "Dữ liệu" (phải có người duyệt). Phần còn lại agent tự suy ra khi dò.
 2. `pnpm signin <task>`.
 3. Trong Claude Code hoặc Cursor: `/web-crawl-script new specs/<task>.md`.
 4. Review `automations/tasks/<task>.ts` trước lần chạy prod đầu tiên.
