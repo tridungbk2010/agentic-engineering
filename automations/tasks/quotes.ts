@@ -1,24 +1,20 @@
 // Reference task (plan Phase 3a): quotes.toscrape.com, a public sandbox built for scraping practice.
 // Spec: specs/quotes.md. Copy this file as the starting point for a new task.
-import type { TaskConfig, TaskContext } from '../../lib/types.ts'
+// Only fields that differ from the defaults in lib/config.ts are written here.
+import type { TaskConfigInput, TaskContext } from '../../lib/types.ts'
 
 const ORIGIN = 'https://quotes.toscrape.com'
 
-export const config: TaskConfig = {
+export const config: TaskConfigInput = {
   site: 'quotes',
   envs: {
-    live: { startUrl: `${ORIGIN}/`, appOrigins: [ORIGIN], idpOrigins: [], dropOrigins: [], agentAllowed: true },
+    live: { startUrl: `${ORIGIN}/`, agentAllowed: true },
   },
-  writeAllowlist: [],
-  blockUrls: [/logout|signout/i],
-  allowWebSocket: [],
   minRecords: 100,
   uniqueKey: 'text',
-  maxPages: 20,
   rate: { minDelayMs: 500 },
-  // The site is public; these only matter if a crawl ever lands on its login page.
-  session: { loginUrl: `${ORIGIN}/login`, loginInput: 'input[name=username]' },
-  timeoutMs: 120_000,
+  // The site is public; this only matters if a crawl ever lands on its login page.
+  session: { loginUrl: `${ORIGIN}/login` },
 }
 
 // The /scroll page loads its quotes from this JSON API, so the task calls it directly instead of parsing HTML.

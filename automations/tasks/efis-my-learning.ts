@@ -1,32 +1,24 @@
 // Spec: specs/efis-my-learning.md.
 // EFIS renders the course list and progress on the server (TanStack Start loaders), so there is no JSON API
 // to call: the task reads the enrolled courses from /courses and the progress from each /learn/<slug> page.
-import type { TaskConfig, TaskContext } from '../../lib/types.ts'
+import type { TaskConfigInput, TaskContext } from '../../lib/types.ts'
 
 const ORIGIN = 'https://staging.efis.edu.vn'
 
-export const config: TaskConfig = {
+export const config: TaskConfigInput = {
   site: 'efis',
   envs: {
     staging: {
       startUrl: `${ORIGIN}/my-learning`,
       // Supabase is the app's backend (REST + Auth), so it counts as app: writes to it are blocked.
-      appOrigins: [ORIGIN, 'https://nnofmqnajhdxdwcqrpxt.supabase.co'],
+      appOrigins: ['https://nnofmqnajhdxdwcqrpxt.supabase.co'],
       idpOrigins: ['https://accounts.google.com'],
-      dropOrigins: [],
       agentAllowed: true,
     },
   },
-  writeAllowlist: [],
-  blockUrls: [/logout|signout/i],
-  allowWebSocket: [],
-  minRecords: 1,
   uniqueKey: 'courseId',
-  maxPages: 20,
-  rate: { minDelayMs: 1000 },
   // A signed-out visit to /my-learning redirects to /login?next=...
   session: { loginUrl: /^https:\/\/staging\.efis\.edu\.vn\/login(\?|$)/, loginInput: 'input[type=email]' },
-  timeoutMs: 120_000,
 }
 
 type EnrolledCourse = { courseId: string; title: string }

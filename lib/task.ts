@@ -2,9 +2,10 @@ import { parseArgs } from 'node:util'
 import path from 'node:path'
 import fs from 'node:fs'
 import type { ZodType } from 'zod'
+import { resolveConfig } from './config.ts'
 import { UsageError } from './exit.ts'
 import { ROOT, TASK_NAME } from './settings.ts'
-import type { EnvConfig, TaskModule } from './types.ts'
+import type { EnvConfig, TaskConfigInput, TaskModule } from './types.ts'
 
 export type Cli = {
   task: string
@@ -47,9 +48,12 @@ async function importIfExists<T>(file: string, what: string): Promise<T> {
 }
 
 export async function loadTask(task: string): Promise<TaskModule> {
-  const module = await importIfExists<Partial<TaskModule>>(path.join(ROOT, 'automations', 'tasks', `${task}.ts`), 'task module')
+  const module = await importIfExists<{ config?: TaskConfigInput; run?: TaskModule['run'] }>(
+    path.join(ROOT, 'automations', 'tasks', `${task}.ts`),
+    'task module',
+  )
   if (!module.config || typeof module.run !== 'function') throw new UsageError(`task "${task}" must export config and run()`)
-  return module as TaskModule
+  return { config: resolveConfig(module.config), run: module.run }
 }
 
 export async function loadSchema(task: string): Promise<ZodType> {

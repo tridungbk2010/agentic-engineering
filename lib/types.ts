@@ -45,6 +45,18 @@ export type TaskConfig = {
   locale?: string
 }
 
+/**
+ * What a task file writes. Only `site` and each env's `startUrl` are required; `resolveConfig()`
+ * fills the rest with defaults that never loosen the guard.
+ */
+export type EnvConfigInput = Pick<EnvConfig, 'startUrl'> & Partial<EnvConfig>
+
+export type TaskConfigInput = Pick<TaskConfig, 'site'> &
+  Partial<Omit<TaskConfig, 'site' | 'envs' | 'session'>> & {
+    envs: Record<string, EnvConfigInput>
+    session?: Partial<TaskConfig['session']>
+  }
+
 export type TaskContext = {
   page: Page
   api: Api

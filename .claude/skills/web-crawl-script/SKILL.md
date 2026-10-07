@@ -56,7 +56,18 @@ Cú pháp các lệnh playwright-cli: xem skill `playwright-cli` (cài bằng `p
 
 ## 4. Chốt script
 
-Tạo `automations/tasks/<task>.ts`, lấy `automations/tasks/quotes.ts` làm mẫu. File export `config` và `run()`.
+Tạo `automations/tasks/<task>.ts`, lấy `automations/tasks/quotes.ts` làm mẫu. File export `config` (kiểu `TaskConfigInput`) và `run()`.
+
+`config` chỉ ghi `site`, `startUrl` của từng env và những trường khác mặc định. `lib/config.ts` tự điền phần còn lại, mọi mặc định đều không nới lỏng guard:
+
+- origin của `startUrl` luôn nằm trong `appOrigins`; chỉ ghi thêm origin API khác.
+- `idpOrigins`, `dropOrigins`, `writeAllowlist`, `allowWebSocket`: rỗng.
+- `agentAllowed`: `false`. Env agent được dò phải ghi `agentAllowed: true`.
+- `blockUrls`: luôn có `/logout|signout/i`; chỉ ghi thêm mẫu khác.
+- `minRecords: 1`, `maxPages: 20`, `rate.minDelayMs: 1000`, `timeoutMs: 120_000`.
+- `session.loginInput`: ô email, password hoặc username thông dụng. `session.loginUrl` chỉ cần khi app có trang login riêng, không qua IdP.
+
+Không chép lại giá trị mặc định vào task.
 
 - Chỉ dùng `page` và `api` do `run.ts` truyền vào. Không gọi `fetch` của Node, `page.request`, `context.request` hay `request.newContext`: các đường này không qua guard.
 - Gọi API bằng `api.json(url)`. Nó dùng cookie của trình duyệt, tự giãn cách theo `rate`, và tự nhận ra hết phiên.

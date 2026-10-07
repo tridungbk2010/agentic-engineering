@@ -49,6 +49,8 @@ Khi lỗi, màn hình chỉ in tên bước và loại lỗi. Chi tiết nằm t
 
 Task mẫu: `automations/tasks/quotes.ts` với `specs/quotes.md`.
 
+`config` của task chỉ cần `site`, `startUrl` của từng env và những gì khác mặc định. Mặc định nằm trong `lib/config.ts` và không bao giờ nới lỏng guard: origin của `startUrl` luôn là app origin, request ghi bị chặn, logout bị chặn, `agentAllowed` là `false`.
+
 ## Cấu trúc
 
 ```
@@ -57,6 +59,7 @@ schemas/<task>.ts       zod schema, crawl và analyze cùng dùng
 automations/run.ts      pnpm crawl
 automations/signin.ts   pnpm signin
 automations/tasks/      config + run() của từng task
+lib/config.ts           điền giá trị mặc định cho config của task
 analysis/               pnpm analyze, không mở browser
 lib/guard.ts            chặn request ghi (mặc định chặn) và bản bọc api
 lib/session.ts          phát hiện hết phiên
