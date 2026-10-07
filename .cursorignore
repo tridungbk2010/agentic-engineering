@@ -1,0 +1,6 @@
+# Keeps Cursor's Agent, Tab and @-mentions away from real data.
+# It does not stop the agent's terminal or MCP tools, and it cannot cover ~/.agentic-engineering/.
+out/raw/
+out/traces/
+out/logs/
+.playwright-cli/

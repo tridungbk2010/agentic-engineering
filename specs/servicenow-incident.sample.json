@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "task": "servicenow-incident",
+    "env": "uat",
+    "params": { "from": "2026-01-01", "to": "2026-01-31" },
+    "recordCount": 1,
+    "startedAt": "2026-02-01T00:00:00.000Z",
+    "finishedAt": "2026-02-01T00:00:20.000Z"
+  },
+  "records": [
+    {
+      "number": "INC0000001",
+      "shortDescription": "Sample incident with invented content",
+      "state": "Resolved",
+      "openedAt": "2026-01-15T03:20:00.000Z",
+      "bankerName": "Sample Banker",
+      "bankerPNumber": "p000123",
+      "notes": [
+        {
+          "type": "work_notes",
+          "createdAt": "2026-01-15T04:00:00.000Z",
+          "author": "Sample Agent",
+          "text": "Invented note text. No real customer or employee data."
+        }
+      ]
+    }
+  ]
+}

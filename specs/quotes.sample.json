@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "task": "quotes",
+    "env": "live",
+    "params": {},
+    "recordCount": 2,
+    "startedAt": "2026-01-01T00:00:00.000Z",
+    "finishedAt": "2026-01-01T00:00:06.000Z"
+  },
+  "records": [
+    {
+      "text": "“An invented sentence that stands in for a real quote.”",
+      "author": "Example Author",
+      "authorSlug": "Example-Author",
+      "tags": ["sample", "placeholder"]
+    },
+    {
+      "text": "“A second made-up line, with no tags.”",
+      "author": "Another Person",
+      "authorSlug": "Another-Person",
+      "tags": []
+    }
+  ]
+}

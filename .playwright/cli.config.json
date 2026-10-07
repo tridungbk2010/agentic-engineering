@@ -1,0 +1,12 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "launchOptions": {
+      "channel": "msedge"
+    },
+    "contextOptions": {
+      "locale": "en-US",
+      "serviceWorkers": "block"
+    }
+  }
+}

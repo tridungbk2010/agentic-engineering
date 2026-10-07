@@ -1,0 +1,30 @@
+{
+  "name": "agentic-engineering",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.28.5",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "crawl": "tsx automations/run.ts",
+    "signin": "tsx automations/signin.ts",
+    "analyze": "tsx analysis/run.ts",
+    "clean": "tsx automations/clean.ts",
+    "test": "tsx --test test/unit/*.test.ts test/e2e/*.test.ts",
+    "test:unit": "tsx --test test/unit/*.test.ts",
+    "test:live": "tsx --test test/live/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "graphql": "^17.0.2",
+    "playwright": "1.63.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

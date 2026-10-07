@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(/out/raw/**)",
+      "Read(/out/traces/**)",
+      "Read(/out/logs/**)",
+      "Read(~/.agentic-engineering/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "excludedCommands": [
+      "pnpm crawl *",
+      "pnpm signin *",
+      "pnpm analyze *",
+      "pnpm clean",
+      "pnpm test",
+      "pnpm test:live",
+      "playwright-cli *"
+    ]
+  }
+}
